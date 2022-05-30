@@ -1,15 +1,14 @@
 
-from django.contrib.auth.models import User
 from django.utils import timezone
 
-from currency_converter.forms import UserAuthForm, RegisterForm, CurrencyForm
-from currency_converter.models import UserProfile, Currency, History
+from currency.forms import UserAuthForm, RegisterForm, CurrencyForm
+from currency.models import UserProfile, Currency, History
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
 from django.views import View
 from django.shortcuts import render
-from currency_converter.helpers import get_request, refresh_currency
+from currency.helpers import get_request, refresh_currency
 
 
 class CurrencyMain(View):
@@ -22,7 +21,7 @@ class CurrencyMain(View):
         currency_form = CurrencyForm()
         context = {'currencies': info_from_database,
                    'currency_form': currency_form}
-        return render(request, 'currency/currency.html', context)
+        return render(request, 'currency/currency-index.html', context)
 
     def post(self, request):
         info_from_database = Currency.objects.first()
@@ -43,6 +42,9 @@ class CurrencyMain(View):
             converted_currency = (from_country_base_value / to_country_base_value) * float(input_currency_value)
             converted_currency = round(converted_currency, 2)
             context['converted_currency'] = converted_currency
+            context['source_currency_code'] = source_currency_code
+            context['input_currency_value'] = input_currency_value
+            context['target_currency_code'] = target_currency_code
             user_profile = UserProfile.objects.get(user=request.user)
             History.objects.create(time=timezone.now(),
                                    source_amount=input_currency_value,
@@ -52,10 +54,10 @@ class CurrencyMain(View):
                                    customer=user_profile,
                                    )
 
-            return render(request, 'currency/currency.html', context)
+            return render(request, 'currency/currency-index.html', context)
 
 
-class CurrencyRegestration(View):
+class CurrencyRegistration(View):
     """Пердставление регистрации пользователя"""
 
     def get(self, request):
@@ -73,7 +75,7 @@ class CurrencyRegestration(View):
             password = reg_form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
-            return HttpResponseRedirect('/currency')
+            return HttpResponseRedirect('/')
         else:
             context = {'reg_form': reg_form}
             return render(request, 'currency/registration.html', context)
@@ -97,7 +99,7 @@ class CurrencyAuth(LoginView):
             if user:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect('/currency')
+                    return HttpResponseRedirect('/')
                 else:
                     auth_form.add_error(None, 'Ошибка! Учетная запись пользователя не активна!')
                     return render(request, 'currency/login.html', context)
@@ -109,7 +111,7 @@ class CurrencyAuth(LoginView):
 class CurrencyOutView(LogoutView):
     """Представление выхода из аккаунта пользователя на сайте"""
 
-    next_page = '/currency'
+    next_page = '/'
 
 
 class CurrencyProfile(View):

@@ -4,7 +4,7 @@ import json
 import requests
 from django.utils import timezone
 
-from currency_converter.models import Currency
+from currency.models import Currency
 
 def get_request():
     list_of_currencies_we_interested = ['RUB', 'EUR', 'USD']

@@ -1,0 +1,29 @@
+{% extends "currency/currency-index.html" %}
+{% block page %}
+{% load crispy_forms_tags %}
+
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="card box-shadow m-2">
+            <div class="card-header text-center">
+                <h4> New user registration page </h4>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="regform">
+                        {{ reg_form|crispy }}
+                </div>
+                <hr class="hr-line-dashed">
+                <div class="form-footer text-center">
+                    <input type="submit" class="btn btn-primary" value="Register" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

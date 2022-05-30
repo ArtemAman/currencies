@@ -1,0 +1,37 @@
+{% extends "currency/currency-index.html" %}
+{% block page %}
+
+<body>
+
+<div class="container mr-bot">
+    <div class="row">
+        <div class="card box-shadow m-2">
+            <div class="card-header text-center">
+                <h4> My profile </h4>
+            </div>
+            <div class="myprofile">
+                <p> Username :{{ user_profile.user.username }}</p>
+                <p> First Name : {{ user_profile.user.first_name }}</p>
+                <p> Last name : {{ user_profile.user.last_name }}</p>
+                <h5> Your convert history</h5>
+
+                {% for hist in history %}
+                    <div class="purch">
+                        <p class="purch-element"> {{hist.time}} </p>
+                        <p class="purch-element"> {{hist.source_amount}} </p>
+                        <p class="purch-element"> {{hist.source_money}} </p>
+                        <p class="purch-element space">  </p>
+                        <p class="purch-element"> {{hist.target_amount}}  </p>
+                        <p class="purch-element"> {{hist.target_money}}  </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+{% endblock %}

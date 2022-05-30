@@ -1,0 +1,102 @@
+body {
+    width: 100%;
+    background: violet;
+    display: flex;
+    flex-direction: column;
+}
+
+.headerclass {
+    text-align: right;
+    padding-right: 160px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 50px;
+    background-color: black;
+    opacity: 0.7;
+}
+
+.myprofile {
+    padding-left: 10px;
+}
+
+
+
+.headerclass-link {
+    color: white;
+    margin-left: 30px;
+}
+
+.headerclass-header {
+    color: white;
+}
+
+.notloggedin-text {
+    text-align: center
+}
+
+.purch {
+    display: flex;
+    flex-direction: row;
+}
+.purch-element {
+    margin-right: 10px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.regform {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.mr-bot {
+    padding-bottom: 30px;
+}
+
+.box-shadow {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+
+.btn {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    padding: 10px 30px 10px 30px;
+    margin: 7px;
+}
+
+@media (min-width: 481px) {
+
+    .card {
+        max-width: 1000px;
+        min-width: 700px;
+
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .card {
+        max-width: 1000px;
+
+    }
+
+}
+
+.card-header {
+
+    background-color: rgba(144, 123, 73, 0.23);
+}
